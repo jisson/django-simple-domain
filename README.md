@@ -9,12 +9,12 @@ The purpose of that application is to facilitate the deployment of a project on 
 ## Features ##
 
 * Automatic creation of a Site model instance based on a domain name from your settings
-* Ensuring that the Django Site Framework will ALWAYS returns to you the appropriate instance of Site based on the defined domain name.
+* Ensuring that the Django Site Framework will **ALWAYS** returns to you the appropriate instance of Site based on the defined domain name.
 * It won't delete any previous instance of Site
 
 ## How to setup? ##
 
-First, add the application and the middleware to your application. Don't forget to enable 'django.contrib.sites'!
+First, add the application and the middleware to your application. Don't forget to enable '**django.contrib.sites**'!
 
 ```
 # settings.py
@@ -45,7 +45,7 @@ SIMPLE_DOMAIN_NAME = "localhost:8080"
 SITE_ID = SiteID()
 ```
 
-That's it! If your settings are correct, an instance of Site with the specified SIMPLE_DOMAIN_NAME will be created during the startup of your project and the correct instance of Site will be returned by the Django Site Framework.
+That's it! If your settings are correct, an instance of Site with the specified **SIMPLE_DOMAIN_NAME** will be created during the startup of your project and the correct instance of Site will be returned by the Django Site Framework.
 
 You are able to test it by executing the following python code in the console:
 ```
