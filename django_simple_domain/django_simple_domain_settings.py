@@ -2,8 +2,8 @@ from django.conf import settings
 
 __author__ = 'Jisson | pierre@jisson.com'
 
-DOMAIN_NAME = getattr(settings, 'SIMPLE_SITES_DOMAIN_NAME', 'example.com')
-ENABLED = getattr(settings, 'SIMPLE_SITES_ENABLED', True)
+DOMAIN_NAME = getattr(settings, 'SIMPLE_DOMAIN_NAME', 'example.com')
+ENABLED = getattr(settings, 'SIMPLE_DOMAIN_ENABLED', True)
 
 # Retrieving SITE_ID from global settings
 SITE_ID = getattr(settings, 'SITE_ID', None)

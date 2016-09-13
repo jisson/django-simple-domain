@@ -32,20 +32,20 @@ MIDDLEWARE_CLASSES = (
 )
 ```
 
-Then, specify the desired domain name (**SIMPLE_SITES_DOMAIN_NAME**) and ensure that **SITE_ID** is initialized as an instance of **django_simple_domain.site_id_local.SiteID**:
+Then, specify the desired domain name (**SIMPLE_DOMAIN_NAME**) and ensure that **SITE_ID** is initialized as an instance of **django_simple_domain.site_id_local.SiteID**:
 
 ```
 # settings.py
 from django_simple_domain.site_id_local import SiteID
 
 # Your domain name according to your development environment
-SIMPLE_SITES_DOMAIN_NAME = "localhost:8080"
+SIMPLE_DOMAIN_NAME = "localhost:8080"
 
 # Dynamic and thread safe SITE_ID
 SITE_ID = SiteID()
 ```
 
-That's it! If your settings are correct, an instance of Site with the specified SIMPLE_SITES_DOMAIN_NAME will be created during the startup of your project and the correct instance of Site will be returned by the Django Site Framework.
+That's it! If your settings are correct, an instance of Site with the specified SIMPLE_DOMAIN_NAME will be created during the startup of your project and the correct instance of Site will be returned by the Django Site Framework.
 
 You are able to test it by executing the following python code in the console:
 ```
@@ -57,7 +57,7 @@ u'localhost:8080'
 
 ## Disabling the application ##
 
-You can disable the application by setting the property **SIMPLE_SITES_ENABLED** to False. The default value for **SIMPLE_SITES_ENABLED** is True.
+You can disable the application by setting the property **SIMPLE_DOMAIN_ENABLED** to False. The default value for **SIMPLE_DOMAIN_ENABLED** is True.
 
 For example, if you want to disable the app during unit tests:
 
@@ -66,7 +66,7 @@ For example, if you want to disable the app during unit tests:
 import sys
 
 if 'test' not in sys.argv and 'jenkins' not in sys.argv:
-    SIMPLE_SITES_ENABLED = False
+    SIMPLE_DOMAIN_ENABLED = False
 ```
 
 ## Unit tests ##
@@ -76,4 +76,13 @@ You can run unit tests with the following command:
 ```
 python manage.py test django_simple_domain
 ```
+
+## Resources ##
+Some parts of that module (the **SiteID** class and the **Middleware** class used for thread safe access to SITE_ID) come from that excellent django snippet from [jhg](https://djangosnippets.org/users/jhg/):
+[Dynamic SITE_ID thread-safe](https://djangosnippets.org/snippets/3041/).
+
+## TODO ##
+* The code creating the Site instance during startup is located in the AppConfig of the module. But according to the Django documentation it is not a proper way to do. Find a better way to accomplish that?
+* Tests on previous django version (currently tested on 1.8), add more unit tests.
+* Find a way to use django cache for the middleware?
 
