@@ -14,6 +14,12 @@ The purpose of that application is to facilitate the deployment of a project on 
 
 ## How to setup? ##
 
+You can retrieve the application using python-pip:
+
+```
+pip install django-simple-domain
+```
+
 First, add the application and the middleware to your application. Don't forget to enable '**django.contrib.sites**'!
 
 ```
