@@ -1,0 +1,15 @@
+Metadata-Version: 1.1
+Name: django-simple-domain
+Version: 0.1
+Summary: Simple domain name settings for Django site framework
+Home-page: https://github.com/jisson/django-simple-domain
+Author: Jisson
+Author-email: pierre@jisson.fr
+License: Public
+Download-URL: https://github.com/jisson/django-simple-domain/tarball/0.1
+Description: UNKNOWN
+Keywords: site,domain,django
+Platform: UNKNOWN
+Classifier: Framework :: Django
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 2.7

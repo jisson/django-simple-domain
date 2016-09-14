@@ -4,12 +4,13 @@ __author__ = 'Jisson | pierre@jisson.com'
 
 
 setup(name='django-simple-domain',
-      version='0.0.1',
       packages=['django_simple_domain'],
-      # TODO: Github url
+      version='0.1',
+      url='https://github.com/jisson/django-simple-domain',
+      download_url='https://github.com/jisson/django-simple-domain/tarball/0.1',
       license='Public',
       author='Jisson',
-      author_email='pierre@jisson.com',
+      author_email='pierre@jisson.fr',
       description='Simple domain name settings for Django site framework',
       setup_requires=[
       ],
@@ -18,6 +19,7 @@ setup(name='django-simple-domain',
       ],
       test_suite='django_simple_domain.tests',
       include_package_data=True,
+      keywords=['site', 'domain', 'django'],
       classifiers=[
           'Framework :: Django',
           'Intended Audience :: Developers',
