@@ -22,7 +22,7 @@ class DjangoSimpleSiteConfig(AppConfig):
     """
 
     name = 'django_simple_domain'
-    verbose_name = _('Django Simple Sites')
+    verbose_name = _('Django Simple Sites')     # TODO: Make translation files
 
     @staticmethod
     def _check_settings():
