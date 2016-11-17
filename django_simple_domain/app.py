@@ -48,7 +48,7 @@ class DjangoSimpleSiteConfig(AppConfig):
         if SIMPLE_DOMAIN_ENABLED is True
         """
         std_logger.info("Checking if module should be enabled...")
-        return simple_site_settings.ENABLED and simple_site_utils.is_item_in_list_a_in_list_b(
+        return simple_site_settings.ENABLED and not simple_site_utils.is_item_in_list_a_in_list_b(
             simple_site_settings.DEACTIVATING_COMMANDS, sys.argv
         )
 
