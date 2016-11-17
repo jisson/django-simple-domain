@@ -75,6 +75,22 @@ if 'test' not in sys.argv and 'jenkins' not in sys.argv:
     SIMPLE_DOMAIN_ENABLED = False
 ```
 
+It is also possible to provide a list of 'deactivating commands' by overriding the **SIMPLE_DOMAIN_DEACTIVATING_COMMANDS** property in the settings of your Django Application.
+**SIMPLE_DOMAIN_DEACTIVATING_COMMANDS** define a list of commands in connection with which you don't wont to enable django-simple-domain. As the app access the database during Django startup, django-simple-domain could conflict during initial migration because it require 'django.contrib.sites' migrations to be done before doing anything.
+
+So the default value for **SIMPLE_DOMAIN_DEACTIVATING_COMMANDS** is:
+
+```
+['migrate', 'makemigrations']
+```
+
+You can easily redefine it:
+
+```
+# settings.py
+SIMPLE_DOMAIN_DEACTIVATING_COMMANDS = ['migrate', 'makemigrations', 'test']    # Will disable app during 'unit-test' too
+```
+
 ## Unit tests ##
 
 You can run unit tests with the following command:
