@@ -6,6 +6,7 @@ django_simple_domain/django_simple_domain_settings.py
 django_simple_domain/middleware.py
 django_simple_domain/services.py
 django_simple_domain/site_id_local.py
+django_simple_domain/utils.py
 django_simple_domain.egg-info/PKG-INFO
 django_simple_domain.egg-info/SOURCES.txt
 django_simple_domain.egg-info/dependency_links.txt
