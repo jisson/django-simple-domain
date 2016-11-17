@@ -24,17 +24,32 @@ class DjangoSimpleSiteConfig(AppConfig):
     verbose_name = _('Django Simple Sites')
 
     @staticmethod
+    def _check_deactivating_commands():
+        """
+        Check if one of the commands given in sys.argv is should deactivate django-simple-domain.
+
+        :return:    True will be returned if there is no command related to DEACTIVATING_COMMANDS in sys.argv
+        """
+        for command in simple_site_settings.DEACTIVATING_COMMANDS:
+            if command in sys.argv:
+                # User gave a command contained in SIMPLE_DOMAIN_DEACTIVATING_COMMANDS. The module should be deactivated
+                return False
+        return True
+
+    @staticmethod
     def _check_settings():
         """
         Perform check on settings. Checks are not performed during unit tests.
         """
 
         # Disabling AppConfig during unit tests
-        if 'test' not in sys.argv and 'jenkins' not in sys.argv:
-            # Checking INSTALLED_APPS setting
-            services.check_installed_apps_setting()
-            # Checking SITE_ID setting
-            services.check_site_id_setting(simple_site_settings.SITE_ID)
+        # TODO: Seems useless now
+        # if 'test' not in sys.argv and 'jenkins' not in sys.argv:
+
+        # Checking INSTALLED_APPS setting
+        services.check_installed_apps_setting()
+        # Checking SITE_ID setting
+        services.check_site_id_setting(simple_site_settings.SITE_ID)
 
     def ready(self):
         """
@@ -43,9 +58,10 @@ class DjangoSimpleSiteConfig(AppConfig):
         """
 
         # TODO: Apps are not supposed to write in the database from AppConfig. Is there a better approach?
+        # TODO: Disable that feature during migration as that app does not need to be migrated!
 
         # Not performing anything if the application has been disabled
-        if simple_site_settings.ENABLED:
+        if simple_site_settings.ENABLED and self._check_deactivating_commands():
             std_logger.info("Loading AppConfig for django_simple_settings...")
 
             try:
@@ -58,4 +74,5 @@ class DjangoSimpleSiteConfig(AppConfig):
             except ImproperlyConfigured as e:
                 raise e
         else:
-            std_logger.info("Not loading AppConfig because of unit test mode")
+            std_logger.info("Not loading AppConfig. Module is not enabled or a command given to sys.argv is in "
+                            "SIMPLE_DOMAIN_DEACTIVATING_COMMANDS.")
