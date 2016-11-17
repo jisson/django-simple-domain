@@ -6,6 +6,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import ugettext_lazy as _
 
 import django_simple_domain.django_simple_domain_settings as simple_site_settings
+import utils as simple_site_utils
 from django_simple_domain import services
 
 __author__ = 'Jisson | pierre@jisson.com'
@@ -24,32 +25,32 @@ class DjangoSimpleSiteConfig(AppConfig):
     verbose_name = _('Django Simple Sites')
 
     @staticmethod
-    def _check_deactivating_commands():
-        """
-        Check if one of the commands given in sys.argv is should deactivate django-simple-domain.
-
-        :return:    True will be returned if there is no command related to DEACTIVATING_COMMANDS in sys.argv
-        """
-        for command in simple_site_settings.DEACTIVATING_COMMANDS:
-            if command in sys.argv:
-                # User gave a command contained in SIMPLE_DOMAIN_DEACTIVATING_COMMANDS. The module should be deactivated
-                return False
-        return True
-
-    @staticmethod
     def _check_settings():
         """
         Perform check on settings. Checks are not performed during unit tests.
         """
 
         # Disabling AppConfig during unit tests
-        # TODO: Seems useless now
-        # if 'test' not in sys.argv and 'jenkins' not in sys.argv:
+        # TODO: Create command list specific to settings?
+        if 'test' not in sys.argv and 'jenkins' not in sys.argv:
+            # Checking INSTALLED_APPS setting
+            services.check_installed_apps_setting()
+            # Checking SITE_ID setting
+            services.check_site_id_setting(simple_site_settings.SITE_ID)
 
-        # Checking INSTALLED_APPS setting
-        services.check_installed_apps_setting()
-        # Checking SITE_ID setting
-        services.check_site_id_setting(simple_site_settings.SITE_ID)
+    @staticmethod
+    def _get_enabled():
+        """
+        Check if one of the commands given in sys.argv is should deactivate django-simple-domain or if
+        SIMPLE_DOMAIN_ENABLED is False.
+
+        :return:    True will be returned if there is no command related to DEACTIVATING_COMMANDS in sys.argv and
+        if SIMPLE_DOMAIN_ENABLED is True
+        """
+        std_logger.info("Checking if module should be enabled...")
+        return simple_site_settings.ENABLED and simple_site_utils.is_item_in_list_a_in_list_b(
+            simple_site_settings.DEACTIVATING_COMMANDS, sys.argv
+        )
 
     def ready(self):
         """
@@ -61,7 +62,7 @@ class DjangoSimpleSiteConfig(AppConfig):
         # TODO: Disable that feature during migration as that app does not need to be migrated!
 
         # Not performing anything if the application has been disabled
-        if simple_site_settings.ENABLED and self._check_deactivating_commands():
+        if self._get_enabled():
             std_logger.info("Loading AppConfig for django_simple_settings...")
 
             try:
