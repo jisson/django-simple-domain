@@ -5,7 +5,7 @@ __author__ = 'Jisson | pierre@jisson.com'
 
 setup(name='django-simple-domain',
       packages=['django_simple_domain'],
-      version='0.1',
+      version='0.2',
       url='https://github.com/jisson/django-simple-domain',
       download_url='https://github.com/jisson/django-simple-domain/tarball/0.1',
       license='Public',
