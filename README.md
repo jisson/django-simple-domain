@@ -99,6 +99,11 @@ You can run unit tests with the following command:
 python manage.py test django_simple_domain
 ```
 
+## Compatibility ##
+
+The app work fine on Django 1.8. But it cannot work with Django 1.10. It is surely due to an update regarding to the way application are loaded from Django 1.9:
+https://docs.djangoproject.com/en/1.9/releases/1.9/#features-removed-in-1-9
+
 ## Resources ##
 Some parts of that module (the **SiteID** class and the **Middleware** class used for thread safe access to SITE_ID) come from that excellent django snippet from [jhg](https://djangosnippets.org/users/jhg/):
 [Dynamic SITE_ID thread-safe](https://djangosnippets.org/snippets/3041/).
@@ -106,5 +111,6 @@ Some parts of that module (the **SiteID** class and the **Middleware** class use
 ## TODO ##
 * The code creating the Site instance during startup is located in the AppConfig of the module. But according to the Django documentation it is not a proper way to do. Find a better way to accomplish that?
 * Tests on previous django version (currently tested on 1.8), add more unit tests.
+* Find a way to fix incompatibility with Django >= 1.9
 * Find a way to use django cache for the middleware?
 
