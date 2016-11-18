@@ -22,7 +22,7 @@ class DjangoSimpleSiteConfig(AppConfig):
     """
 
     name = 'django_simple_domain'
-    verbose_name = _('Django Simple Sites')     # TODO: Make translation files
+    verbose_name = _('Django Simple Domain')     # TODO: Make translation files
 
     @staticmethod
     def _check_settings():
@@ -60,6 +60,8 @@ class DjangoSimpleSiteConfig(AppConfig):
 
         # TODO: Apps are not supposed to write in the database from AppConfig. Is there a better approach?
         # TODO: Disable that feature during migration as that app does not need to be migrated!
+
+        # TODO: Load settings and (!services) in app.ready
 
         # Not performing anything if the application has been disabled
         if self._get_enabled():
