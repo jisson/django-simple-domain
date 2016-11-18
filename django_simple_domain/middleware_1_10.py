@@ -1,9 +1,22 @@
+# coding=utf-8
 from django.contrib.sites.models import Site
-from django_simple_domain import django_simple_domain_settings
 from django.utils.deprecation import MiddlewareMixin
+
+from django_simple_domain import django_simple_domain_settings
 
 """
 According to Django 1.10 release notes, Middleware have been updated:
+
+    '''
+    Changed in Django 1.10:
+
+    A new style of middleware was introduced for use with the new MIDDLEWARE setting.
+    If you’re using the old MIDDLEWARE_CLASSES setting, you’ll need to adapt old, custom middleware
+    before using the new setting. This document describes new-style middleware. Refer to this page in older versions
+    of the documentation for a description of how old-style middleware works.
+
+    @see: https://docs.djangoproject.com/en/1.10/topics/http/middleware/#upgrading-middleware
+    '''
 
 That python module provide middleware compatible with django 1.10
 """

@@ -7,7 +7,6 @@ from django.utils.translation import ugettext_lazy as _
 
 import utils as simple_site_utils
 
-
 __author__ = 'Jisson | pierre@jisson.com'
 
 
