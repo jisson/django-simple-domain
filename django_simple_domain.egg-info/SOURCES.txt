@@ -3,7 +3,8 @@ setup.py
 django_simple_domain/__init__.py
 django_simple_domain/app.py
 django_simple_domain/django_simple_domain_settings.py
-django_simple_domain/middleware.py
+django_simple_domain/middleware_1_10.py
+django_simple_domain/middleware_1_8.py
 django_simple_domain/services.py
 django_simple_domain/site_id_local.py
 django_simple_domain/utils.py
