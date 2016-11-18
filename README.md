@@ -2,7 +2,7 @@
 
 Make setting and use of the Django Site Framework easier.
 
-By simply add a host name in the settings of your Django project, django-simple-domain will ensure that an instance of Site corresponding to your host name has been created at launch. It also will ensure that the Django Site Framework always give you the Site instance corresponding to your domain name.
+By simply adding a host name in the settings of your Django project, django-simple-domain will ensure that an instance of Site corresponding to your host name has been created at launch. It also will ensure that the Django Site Framework always give you the Site instance corresponding to your domain name.
 
 The purpose of that application is to facilitate the deployment of a project on many environments. It makes possible to specify a specific host name for each settings file (local, dev, production, etc...) and to not worry about forgot to update the Site model from the admin.
 
@@ -11,6 +11,10 @@ The purpose of that application is to facilitate the deployment of a project on 
 * Automatic creation of a Site model instance based on a domain name from your settings
 * Ensuring that the Django Site Framework will **ALWAYS** returns to you the appropriate instance of Site based on the defined domain name.
 * It won't delete any previous instance of Site
+
+## Compatibility ##
+* Django 1.8 (in theory Django <= 1.9 but it haven't be tested on other django versions right now...)
+* Django 1.10
 
 ## How to setup? ##
 
@@ -30,10 +34,22 @@ INSTALLED_APPS = (
     'django_simple_domain',
     ...
 )
+```
 
+The middleware settings depends on the Django version of your project:
+
+```
+# Django >= 1.10
+MIDDLEWARE = [
+    ...
+    'django_simple_domain.middleware_1_10.SetDynamicSitesMiddleware',
+    ...
+]
+
+# Django <= 1.9 (Currently, compatibility with other version than 1.8 is not insured. See the compatibility section.
 MIDDLEWARE_CLASSES = (
     ...
-    'django_simple_domain.middleware.SetDynamicSitesMiddleware',
+    'django_simple_domain.middleware_1_8.SetDynamicSitesMiddleware',
     ...
 )
 ```
@@ -99,18 +115,14 @@ You can run unit tests with the following command:
 python manage.py test django_simple_domain
 ```
 
-## Compatibility ##
-
-The app work fine on Django 1.8. But it cannot work with Django 1.10. It is surely due to an update regarding to the way application are loaded from Django 1.9:
-https://docs.djangoproject.com/en/1.9/releases/1.9/#features-removed-in-1-9
-
 ## Resources ##
 Some parts of that module (the **SiteID** class and the **Middleware** class used for thread safe access to SITE_ID) come from that excellent django snippet from [jhg](https://djangosnippets.org/users/jhg/):
 [Dynamic SITE_ID thread-safe](https://djangosnippets.org/snippets/3041/).
 
 ## TODO ##
 * The code creating the Site instance during startup is located in the AppConfig of the module. But according to the Django documentation it is not a proper way to do. Find a better way to accomplish that?
-* Tests on previous django version (currently tested on 1.8), add more unit tests.
-* Find a way to fix incompatibility with Django >= 1.9
+* Tests on with more django versions (currently tested on 1.8 and 1.10). 
+* Add more unit tests.
 * Find a way to use django cache for the middleware?
+* Refactor middleware class. Produce a unique class with Mixin if it is possible.
 
