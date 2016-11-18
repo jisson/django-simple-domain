@@ -1,1 +1,1 @@
-__author__ = 'Pierre Rodier | pierre@buffactory.com'
+__author__ = 'Jisson | pierre@jisson.com'
