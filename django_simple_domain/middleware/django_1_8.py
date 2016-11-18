@@ -1,7 +1,6 @@
 from django.contrib.sites.models import Site
 from django_simple_domain import django_simple_domain_settings
 
-
 __author__ = 'Jisson | pierre@jisson.com'
 
 
